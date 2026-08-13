@@ -23,7 +23,7 @@ function Heading({ title, tpl }: { title: string; tpl: TemplateDefinition }) {
 
   if (tpl.heading === 'uppercase-tracked') {
     return (
-      <div style={{ marginBottom: 6 }}>
+      <div style={{ marginBottom: 6, breakInside: 'avoid', pageBreakInside: 'avoid' }}>
         <div
           style={{
             fontWeight: 700,
@@ -41,7 +41,7 @@ function Heading({ title, tpl }: { title: string; tpl: TemplateDefinition }) {
 
   if (tpl.heading === 'uppercase-rule') {
     return (
-      <div style={{ marginBottom: 6 }}>
+      <div style={{ marginBottom: 6, breakInside: 'avoid', pageBreakInside: 'avoid' }}>
         <div
           style={{
             fontWeight: 700,
@@ -102,7 +102,7 @@ function Heading({ title, tpl }: { title: string; tpl: TemplateDefinition }) {
 
   if (tpl.heading === 'centered-uppercase') {
     return (
-      <div style={{ marginBottom: 8, textAlign: 'center' }}>
+      <div style={{ marginBottom: 8, textAlign: 'center', breakInside: 'avoid', pageBreakInside: 'avoid' }}>
         <div style={{ borderTop: `0.6px solid ${accent}`, marginBottom: 5 }} />
         <div style={{ fontWeight: 700, letterSpacing: '0.22em', fontSize: '0.82em', color: accent }}>{label}</div>
         <div style={{ borderTop: `0.6px solid ${accent}`, marginTop: 5 }} />
@@ -112,7 +112,7 @@ function Heading({ title, tpl }: { title: string; tpl: TemplateDefinition }) {
 
   if (tpl.heading === 'boxed-rules') {
     return (
-      <div style={{ marginBottom: 8, textAlign: 'center' }}>
+      <div style={{ marginBottom: 8, textAlign: 'center', breakInside: 'avoid', pageBreakInside: 'avoid' }}>
         <div style={{ borderTop: `1px solid ${accent}` }} />
         <div style={{ fontWeight: 700, letterSpacing: '0.16em', fontSize: '0.86em', color: accent, padding: '3px 0' }}>
           {label}
@@ -123,7 +123,7 @@ function Heading({ title, tpl }: { title: string; tpl: TemplateDefinition }) {
   }
 
   return (
-    <div style={{ marginBottom: 7, display: 'flex', alignItems: 'stretch', gap: 8 }}>
+    <div style={{ marginBottom: 7, display: 'flex', alignItems: 'stretch', gap: 8, breakInside: 'avoid', pageBreakInside: 'avoid' }}>
       <div style={{ width: 3, background: accent, borderRadius: 1 }} />
       <div style={{ fontWeight: 700, letterSpacing: '0.12em', fontSize: '0.9em', color: accent }}>{label}</div>
     </div>
@@ -473,7 +473,7 @@ export function ResumePreview({ resume }: { resume: ResumeData }) {
       <Header resume={resume} tpl={tpl} />
       <div style={{ display: 'grid', gap: sectionGap(resume.settings.spacing) }}>
         {visible.map((section) => (
-          <section key={section.id}>
+          <section key={section.id} style={{ breakInside: 'avoid', pageBreakInside: 'avoid' }}>
             <Heading title={section.title} tpl={tpl} />
             <SectionBody section={section} tpl={tpl} spacing={resume.settings.spacing} />
           </section>

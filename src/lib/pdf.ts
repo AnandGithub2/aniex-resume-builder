@@ -133,12 +133,12 @@ class Writer {
   }
 
   rule(weight: number, color?: [number, number, number]) {
-    this.ensure(2);
+    this.ensure(2.2);
     const c = color || this.color;
     this.doc.setDrawColor(...c);
-    this.doc.setLineWidth(weight * 0.2);
+    this.doc.setLineWidth(Math.max(0.2, weight * 0.2));
     this.doc.line(this.x, this.y, this.x + this.maxW, this.y);
-    this.y += 1.6;
+    this.y += 1.8;
   }
 
   gap(n: number) {
@@ -265,8 +265,12 @@ function writeHeader(w: Writer, resume: ResumeData, tpl: TemplateDefinition) {
 
 function writeHeading(w: Writer, title: string, tpl: TemplateDefinition) {
   const label = headingText(title, tpl);
+
+  // Keep the heading, its divider, and the first content block together.
+  // This prevents a divider from being stranded at the bottom of a page.
+  const headingReserve = w.size * 0.352778 * w.sp.line + 7.5;
   w.gap(w.sp.section * 0.15);
-  w.ensure(8);
+  w.ensure(headingReserve);
 
   if (tpl.heading === 'uppercase-tracked' || tpl.heading === 'uppercase-rule') {
     w.text(label, { size: w.size - 0.4, style: 'bold', color: w.color });
