@@ -1,0 +1,37 @@
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  #resume-print,
+  #resume-print * {
+    visibility: visible;
+  }
+
+  #resume-print {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 210mm !important;
+    min-height: 297mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}

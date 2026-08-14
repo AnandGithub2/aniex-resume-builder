@@ -21,28 +21,43 @@ export function Home() {
 
   return (
     <div className="paper-grid min-h-screen text-ink">
-      <header className="no-print border-b border-[#ddd4c4] bg-[#fbf8f2]/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-          <Link to="/" className="font-display text-[22px] tracking-tight">
-          ANIEX<span className="text-[#6b4f2a]">ATS</span>
-          </Link>
-          <div className="flex items-center gap-4 text-[13px]">
-            <a href="#templates" className="text-[#3a3f4b] hover:text-ink">
-              Templates
-            </a>
-            <a href="#method" className="text-[#3a3f4b] hover:text-ink">
-              Method
-            </a>
-            <button
-              type="button"
-              onClick={openSample}
-              className="rounded-sm border border-[#c9b896] bg-white px-3 py-1.5 text-[12.5px] hover:bg-[#f7f0e4]"
-            >
-              Open sample
-            </button>
-          </div>
-        </div>
-      </header>
+   <header className="no-print border-b border-[#ddd4c4] bg-[#fbf8f2]/90 backdrop-blur">
+  <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
+    <Link to="/" className="font-display tracking-tight leading-none">
+      <span className="font-bold text-black text-[22px]">
+        ANIEX
+      </span>
+      <span className="text-[#6b4f2a] text-[12px] font-medium">
+        <br />
+        ATS Resume
+      </span>
+    </Link>
+
+    <div className="flex items-center gap-4 text-[13px]">
+      <a
+        href="#templates"
+        className="text-[#3a3f4b] hover:text-ink"
+      >
+        Templates
+      </a>
+
+      <a
+        href="#method"
+        className="text-[#3a3f4b] hover:text-ink"
+      >
+        Method
+      </a>
+
+      <button
+        type="button"
+        onClick={openSample}
+        className="rounded-sm border border-[#c9b896] bg-white px-3 py-1.5 text-[12.5px] hover:bg-[#f7f0e4]"
+      >
+        Open sample
+      </button>
+    </div>
+  </div>
+</header>
 
       <main>
         <section className="mx-auto grid max-w-6xl items-end gap-10 px-5 py-16 lg:grid-cols-[1.15fr_0.85fr]">
@@ -54,7 +69,7 @@ export function Home() {
               Write a resume a parser can read and a recruiter will finish.
             </h1>
             <p className="mt-5 max-w-lg text-[16.5px] leading-relaxed text-[#3a3f4b]">
-              Fifteen single-column templates. One shared data model. Live A4 preview. Selectable-text PDF. A
+              single-column templates. One shared data model. Live A4 preview. Selectable-text PDF. A
               compatibility score that never invents skills — and never claims a guaranteed interview.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -155,7 +170,7 @@ export function Home() {
 
         <section id="templates" className="border-y border-[#ddd4c4] bg-[#f7f0e4]/50">
           <div className="mx-auto max-w-6xl px-5 py-14">
-            <h2 className="font-display text-3xl">Fifteen templates. One column. Shared data.</h2>
+            <h2 className="font-display text-3xl">Templates. One column. Shared data.</h2>
             <p className="mt-2 max-w-2xl text-[15px] text-[#3a3f4b]">
               Different headers, heading treatments, skill punctuation, and type defaults — never multi-column traps or
               icon rows.
@@ -204,7 +219,7 @@ export function Home() {
       </main>
 
       <footer className="border-t border-[#ddd4c4] px-5 py-8 text-center text-[12px] text-[#6b6356]">
-        FolioATS · Local drafts · Selectable-text A4 PDF · Not a hiring guarantee
+        ANIEX · Local drafts · Selectable-text A4 PDF · Not a hiring guarantee
       </footer>
     </div>
   );

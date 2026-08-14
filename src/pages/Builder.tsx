@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Download, Save } from 'lucide-react';
 import { AtsPanel } from '../components/AtsPanel';
@@ -6,8 +6,9 @@ import { Editor, TypeControls } from '../components/Editor';
 import { ResumePreview } from '../components/ResumePreview';
 import { RolePicker, TemplateGallery } from '../components/TemplateGallery';
 import { getRole, getTemplate, TEMPLATES } from '../data/catalog';
-import { analyzeATS, preflight } from '../lib/ats';
+import { analyzeATS } from '../lib/ats';
 import { exportResumePdf } from '../lib/pdf';
+
 import { duplicateResume, exportJson, getResume, saveResume } from '../lib/storage';
 import type { ResumeData } from '../types/resume';
 
@@ -24,8 +25,9 @@ function BuilderContent({ id, navigate }: { id?: string; navigate: ReturnType<ty
   const [resume, setResume] = useState<ResumeData | null>(() => (id ? getResume(id) : null));
   const [tab, setTab] = useState<Tab>('write');
   const [savedFlash, setSavedFlash] = useState(false);
-  const [preflightOpen, setPreflightOpen] = useState(false);
+
   const [zoom, setZoom] = useState(0.82);
+  const resumeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!id || !resume) {
@@ -62,16 +64,14 @@ function BuilderContent({ id, navigate }: { id?: string; navigate: ReturnType<ty
     window.setTimeout(() => setSavedFlash(false), 1400);
   };
 
-  const runExport = () => {
-    exportResumePdf(resume);
-    setPreflightOpen(false);
-  };
+const runExport = async () => {
+  if (!resumeRef.current) return;
 
-  const tryExport = () => {
-    setPreflightOpen(true);
-  };
-
-  const check = preflight(resume);
+  await exportResumePdf(
+    resumeRef.current,
+    `${resume.personal.fullName || resume.name || 'resume'}.pdf`,
+  );
+};
 
   return (
     <div className="paper-grid min-h-screen">
@@ -117,7 +117,7 @@ function BuilderContent({ id, navigate }: { id?: string; navigate: ReturnType<ty
             </button>
             <button
               type="button"
-              onClick={tryExport}
+              onClick={runExport}
               className="inline-flex items-center gap-1 rounded-sm bg-[#1a1d23] px-3 py-1.5 text-[#fbf8f2]"
             >
               <Download size={13} /> Export PDF
@@ -235,78 +235,30 @@ function BuilderContent({ id, navigate }: { id?: string; navigate: ReturnType<ty
               />
             </label>
           </div>
-          <div className="flex justify-center overflow-auto pb-16">
-            <div
-              style={{
-                width: `${210 * 3.7795 * zoom}px`,
-                height: `${297 * 3.7795 * zoom}px`,
-              }}
-            >
-              <div
-                style={{
-                  transform: `scale(${zoom})`,
-                  transformOrigin: 'top left',
-                }}
-              >
-                <ResumePreview resume={resume} />
-              </div>
-            </div>
-          </div>
+<div className="flex justify-center overflow-auto pb-16">
+  <div
+    style={{
+      width: '210mm',
+      height: '297mm',
+    }}
+  >
+    <div
+      id="resume-print"
+      ref={resumeRef}
+      style={{
+        width: '210mm',
+        minHeight: '297mm',
+        transform: `scale(${zoom})`,
+        transformOrigin: 'top left',
+      }}
+    >
+      <ResumePreview resume={resume} />
+    </div>
+  </div>
+</div>
         </section>
       </div>
 
-      {preflightOpen ? (
-        <div className="no-print fixed inset-0 z-40 grid place-items-center bg-[#1a1d23]/45 px-4">
-          <div className="w-full max-w-lg border border-[#ddd4c4] bg-[#fbf8f2] p-5 shadow-2xl">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#6b4f2a]">
-              ATS preflight
-            </p>
-            <h2 className="font-display mt-1 text-2xl">Before this PDF leaves the browser</h2>
-            <p className="mt-2 text-[13.5px] leading-relaxed text-[#3a3f4b]">
-              Compatibility score {check.report.score}. This is a structure and readability check, not a prediction that
-              an employer will accept the file.
-            </p>
-            {check.blockers.length ? (
-              <div className="mt-3 border border-[#e3c8c8] bg-white p-3">
-                <p className="text-[13px] font-semibold text-[#7a2e2e]">Blocking issues</p>
-                <ul className="mt-1 list-disc pl-4 text-[13px] text-[#3a3f4b]">
-                  {check.blockers.map((i) => (
-                    <li key={i.id}>{i.title}</li>
-                  ))}
-                </ul>
-                <p className="mt-2 text-[12px] text-[#6b6356]">
-                  Export is still possible, but the file is likely incomplete for most ATS records.
-                </p>
-              </div>
-            ) : (
-              <p className="mt-3 text-[13px] text-[#1c4532]">No blocking identity issues.</p>
-            )}
-            {check.warnings.length ? (
-              <ul className="mt-3 space-y-1 text-[13px] text-[#3a3f4b]">
-                {check.warnings.slice(0, 5).map((i) => (
-                  <li key={i.id}>· {i.title}</li>
-                ))}
-              </ul>
-            ) : null}
-            <div className="mt-5 flex flex-wrap justify-end gap-2">
-              <button
-                type="button"
-                onClick={() => setPreflightOpen(false)}
-                className="rounded-sm border border-[#ddd4c4] bg-white px-3 py-1.5 text-[13px]"
-              >
-                Keep editing
-              </button>
-              <button
-                type="button"
-                onClick={runExport}
-                className="rounded-sm bg-[#1a1d23] px-3 py-1.5 text-[13px] text-[#fbf8f2]"
-              >
-                Export selectable PDF
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : null}
     </div>
   );
 }

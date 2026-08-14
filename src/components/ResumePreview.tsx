@@ -34,7 +34,7 @@ function Heading({ title, tpl }: { title: string; tpl: TemplateDefinition }) {
         >
           {label}
         </div>
-        <div style={{ borderBottom: `${tpl.ruleWeight}px solid ${accent}`, marginTop: 3 }} />
+        <div style={{ borderBottom: `${tpl.ruleWeight}px solid ${accent}`, marginTop: 4 }} />
       </div>
     );
   }
@@ -67,7 +67,7 @@ function Heading({ title, tpl }: { title: string; tpl: TemplateDefinition }) {
             color: accent,
             display: 'inline-block',
             borderBottom: `1.25px solid ${accent}`,
-            paddingBottom: 1,
+            paddingBottom: 2,
           }}
         >
           {label}
@@ -141,9 +141,9 @@ function Header({ resume, tpl }: { resume: ResumeData; tpl: TemplateDefinition }
     return (
       <header style={{ textAlign: 'center', marginBottom: 12 }}>
         <div style={{ fontSize: `${tpl.nameSize}pt`, fontWeight: 700, color: accent, lineHeight: 1.15 }}>{name}</div>
-        {p.headline ? <div style={{ fontStyle: 'italic', marginTop: 3 }}>{p.headline}</div> : null}
+        {p.headline ? <div style={{ fontStyle: 'italic', marginTop: 4 }}>{p.headline}</div> : null}
         {contacts.length ? <div style={{ marginTop: 5, fontSize: '0.94em' }}>{contacts.join(sep)}</div> : null}
-        <div style={{ borderBottom: `${tpl.ruleWeight}px solid ${accent}`, marginTop: 8 }} />
+        <div style={{ borderBottom: `${tpl.ruleWeight}px solid ${accent}`, marginTop: 11 }} />
       </header>
     );
   }
@@ -154,7 +154,7 @@ function Header({ resume, tpl }: { resume: ResumeData; tpl: TemplateDefinition }
         <div style={{ fontSize: `${tpl.nameSize}pt`, fontWeight: 700, color: accent, lineHeight: 1.12 }}>{name}</div>
         {p.headline ? <div style={{ fontStyle: 'italic', marginTop: 2 }}>{p.headline}</div> : null}
         {contacts.length ? <div style={{ marginTop: 5, fontSize: '0.94em' }}>{contacts.join(sep)}</div> : null}
-        <div style={{ borderBottom: `${tpl.ruleWeight}px solid ${accent}`, marginTop: 8 }} />
+        <div style={{ borderBottom: `${tpl.ruleWeight}px solid ${accent}`, marginTop: 11 }} />
       </header>
     );
   }
@@ -174,14 +174,14 @@ function Header({ resume, tpl }: { resume: ResumeData; tpl: TemplateDefinition }
 
   if (tpl.header === 'letterhead') {
     return (
-      <header style={{ textAlign: 'center', marginBottom: 12 }}>
+      <header style={{ textAlign: 'center', marginBottom: 16 }}>
         <div style={{ borderTop: `${Math.max(1.4, tpl.ruleWeight)}px solid ${accent}`, marginBottom: 8 }} />
         <div style={{ fontSize: `${tpl.nameSize}pt`, fontWeight: 700, color: accent, lineHeight: 1.1 }}>{name}</div>
         {p.headline ? (
           <div style={{ letterSpacing: '0.16em', fontSize: '0.82em', marginTop: 4 }}>{p.headline.toUpperCase()}</div>
         ) : null}
         {contacts.length ? <div style={{ marginTop: 6, fontSize: '0.94em' }}>{contacts.join(sep)}</div> : null}
-        <div style={{ borderBottom: `${tpl.ruleWeight}px solid ${accent}`, marginTop: 8 }} />
+        <div style={{ borderBottom: `${tpl.ruleWeight}px solid ${accent}`, marginTop: 11 }} />
       </header>
     );
   }
@@ -194,14 +194,14 @@ function Header({ resume, tpl }: { resume: ResumeData; tpl: TemplateDefinition }
           {p.headline ? <span style={{ fontWeight: 500 }}>  ·  {p.headline}</span> : null}
         </div>
         {contacts.length ? <div style={{ marginTop: 5, fontSize: '0.94em' }}>{contacts.join(sep)}</div> : null}
-        <div style={{ borderBottom: `${tpl.ruleWeight}px solid ${accent}`, marginTop: 8 }} />
+        <div style={{ borderBottom: `${tpl.ruleWeight}px solid ${accent}`, marginTop: 11 }} />
       </header>
     );
   }
 
   if (tpl.header === 'executive') {
     return (
-      <header style={{ textAlign: 'center', marginBottom: 12 }}>
+      <header style={{ textAlign: 'center', marginBottom: 16 }}>
         <div style={{ borderTop: `0.7px solid ${accent}`, marginBottom: 8 }} />
         <div
           style={{
@@ -236,7 +236,7 @@ function Header({ resume, tpl }: { resume: ResumeData; tpl: TemplateDefinition }
         <div style={{ fontSize: `${tpl.nameSize}pt`, fontWeight: 700, color: accent, lineHeight: 1.12 }}>{name}</div>
         {p.headline ? <div style={{ fontStyle: 'italic', marginTop: 2 }}>{p.headline}</div> : null}
         {labeled.length ? <div style={{ marginTop: 7, fontSize: '0.9em' }}>{labeled.join('    ')}</div> : null}
-        <div style={{ borderBottom: `${tpl.ruleWeight}px solid ${accent}`, marginTop: 8 }} />
+        <div style={{ borderBottom: `${tpl.ruleWeight}px solid ${accent}`, marginTop: 11 }} />
       </header>
     );
   }
@@ -248,7 +248,7 @@ function Header({ resume, tpl }: { resume: ResumeData; tpl: TemplateDefinition }
         {p.headline ? <div style={{ fontStyle: 'italic', textAlign: 'right' }}>{p.headline}</div> : null}
       </div>
       {contacts.length ? <div style={{ marginTop: 6, fontSize: '0.94em' }}>{contacts.join(sep)}</div> : null}
-      <div style={{ borderBottom: `${tpl.ruleWeight}px solid ${accent}`, marginTop: 8 }} />
+      <div style={{ borderBottom: `${tpl.ruleWeight}px solid ${accent}`, marginTop: 11 }} />
     </header>
   );
 }

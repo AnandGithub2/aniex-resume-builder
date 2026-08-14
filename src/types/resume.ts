@@ -41,8 +41,16 @@ export type HeadingVariant =
   | 'boxed-rules'
   | 'accent-left';
 
-export type SkillsDisplay = 'comma' | 'pipe' | 'grouped' | 'semicolon';
-export type ExperienceLayout = 'title-dates' | 'company-first' | 'stacked';
+export type SkillsDisplay =
+  | 'comma'
+  | 'pipe'
+  | 'grouped'
+  | 'semicolon';
+
+export type ExperienceLayout =
+  | 'title-dates'
+  | 'company-first'
+  | 'stacked';
 
 export interface PersonalInfo {
   fullName: string;
@@ -151,6 +159,10 @@ export interface ResumeSettings {
   spacing: SpacingScale;
   margin: MarginScale;
   accent: string;
+
+  // Controls the vertical distance between
+  // section title and its underline/rule.
+  headingLineGap: number;
 }
 
 export interface ResumeData {
@@ -172,19 +184,24 @@ export interface TemplateDefinition {
   tagline: string;
   roleLabel: string;
   bestFor: string[];
+
   header: HeaderVariant;
   heading: HeadingVariant;
   skills: SkillsDisplay;
   experience: ExperienceLayout;
+
   defaultFont: FontFamily;
   defaultSize: FontSize;
   defaultSpacing: SpacingScale;
   defaultMargin: MarginScale;
   defaultAccent: string;
+
   nameSize: number;
   ruleWeight: number;
   contactSeparator: string;
+
   headingCase: 'upper' | 'title' | 'small';
+
   description: string;
 }
 
@@ -192,20 +209,35 @@ export interface RoleDefinition {
   id: string;
   name: string;
   blurb: string;
+
   recommendedTemplateId: string;
   alternateTemplateIds: string[];
+
   defaultSectionOrder: SectionType[];
   sectionTitles: Partial<Record<SectionType, string>>;
+
   expectedHeadings: string[];
   usefulKeywords: string[];
 }
 
-export type ATSSeverity = 'pass' | 'info' | 'warn' | 'block';
+export type ATSSeverity =
+  | 'pass'
+  | 'info'
+  | 'warn'
+  | 'block';
 
 export interface ATSIssue {
   id: string;
   severity: ATSSeverity;
-  category: 'parse' | 'complete' | 'content' | 'read' | 'match' | 'format';
+
+  category:
+    | 'parse'
+    | 'complete'
+    | 'content'
+    | 'read'
+    | 'match'
+    | 'format';
+
   title: string;
   detail: string;
   suggestion: string;
@@ -217,9 +249,12 @@ export interface ATSReport {
   completeScore: number;
   contentScore: number;
   readScore: number;
+
   issues: ATSIssue[];
+
   pageEstimate: number;
   wordCount: number;
+
   disclaimer: string;
 }
 

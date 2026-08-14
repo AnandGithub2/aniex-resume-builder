@@ -28,22 +28,48 @@ export function lineHeight(spacing: ResumeSettings['spacing']) {
 
 export function pageStyle(settings: ResumeSettings): CSSProperties {
   return {
+    boxSizing: 'border-box',
+    width: '210mm',
+    minWidth: '210mm',
+    minHeight: '297mm',
+    backgroundColor: '#ffffff',
+
     fontFamily: fontStack(settings.fontFamily),
     fontSize: `${settings.fontSize}pt`,
     lineHeight: lineHeight(settings.spacing),
     color: '#1a1d23',
+
     padding: pagePadding(settings.margin),
+
     ['--accent' as string]: settings.accent,
   };
 }
 
-export function dateLine(start: string, end: string, current?: boolean) {
+export function dateLine(
+  start: string,
+  end: string,
+  current?: boolean,
+) {
   const right = current ? 'Present' : end;
-  if (start && right) return `${start} – ${right}`;
+
+  if (start && right) {
+    return `${start} – ${right}`;
+  }
+
   return start || right || '';
 }
 
 export function contactList(resume: ResumeData) {
   const p = resume.personal;
-  return [p.email, p.phone, p.location, p.linkedin, p.github, p.website].map((v) => v.trim()).filter(Boolean);
+
+  return [
+    p.email,
+    p.phone,
+    p.location,
+    p.linkedin,
+    p.github,
+    p.website,
+  ]
+    .map((v) => v.trim())
+    .filter(Boolean);
 }
