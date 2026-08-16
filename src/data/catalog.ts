@@ -510,13 +510,15 @@ export function createResume(roleId: string, name = 'Untitled resume'): ResumeDa
     updatedAt: now,
     roleId: role.id,
     templateId: template.id,
-    settings: {
-      fontFamily: template.defaultFont,
-      fontSize: template.defaultSize,
-      spacing: template.defaultSpacing,
-      margin: template.defaultMargin,
-      accent: template.defaultAccent,
-    },
+    
+settings: {
+  fontFamily: template.defaultFont,
+  fontSize: template.defaultSize,
+  spacing: template.defaultSpacing,
+  margin: template.defaultMargin,
+  accent: template.defaultAccent,
+  headingLineGap: 4,
+},
     personal: emptyPersonal(),
     sections,
     jobDescription: '',
