@@ -4,6 +4,8 @@ import { ArrowRight, FileText, ShieldCheck, Type } from 'lucide-react';
 import { createResume, getRole, getTemplate, ROLES, sampleResume, TEMPLATES } from '../data/catalog';
 import { deleteResume, listResumes, saveResume } from '../lib/storage';
 import type { ResumeData } from '../types/resume';
+import { supabase } from '../lib/supabase';
+
 
 export function Home() {
   const navigate = useNavigate();
@@ -13,6 +15,11 @@ export function Home() {
     const resume = saveResume(createResume(roleId, `${getRole(roleId).name} resume`));
     navigate(`/builder/${resume.id}`);
   };
+
+  const logout = async () => {
+  await supabase.auth.signOut();
+  navigate('/login');
+};
 
   const openSample = () => {
     const resume = saveResume(sampleResume());
@@ -55,6 +62,14 @@ export function Home() {
       >
         Open sample
       </button>
+
+      <button
+  type="button"
+  onClick={logout}
+  className="rounded-sm border border-[#c9b896] bg-white px-3 py-1.5 text-[12.5px] hover:bg-[#f7f0e4]"
+>
+  Logout
+</button>
     </div>
   </div>
 </header>
